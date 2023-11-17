@@ -12,13 +12,6 @@ spring:
           auth: true
           starttls:
             enable: true
-  profiles:
-    active: authentication
-  config:
-    import: "optional:configserver:"
-  cloud:
-    config:
-      uri: ${Config-server-Url}
   
   
   security:
@@ -66,8 +59,7 @@ forgetPasswordPage:
 ExpiredPage:
   url: http://localhost:4200/not-found
   
-#config server url
-Config-server-Url: http://localhost:8888
+
 
 # config client
   
