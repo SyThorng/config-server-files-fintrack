@@ -1,10 +1,19 @@
 greeting: "hello local"
 
 server:
-  port: 8082
+  port: 8081
 baseUrl: http://localhost:${server.port}
 
 spring:
+  profiles:
+    active: auth
+  main:
+    web-application-type: reactive
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: http://localhost:8888
   mail:
     properties:
       mail:
@@ -12,13 +21,6 @@ spring:
           auth: true
           starttls:
             enable: true
-  profiles:
-    active: authentication
-  config:
-    import: "optional:configserver:"
-  cloud:
-    config:
-      uri: http://localhost:8888
 
   security:
     oauth2:
