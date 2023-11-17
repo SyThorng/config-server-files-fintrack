@@ -49,7 +49,7 @@ keycloak:
   tokenUrl: https://keycloak-fintrack.sythorng.site/auth/realms/USER_SERVICE/protocol/openid-connect/token
 
 server:
-  port: 8082
+  port: 8081
 
 kafka:
   group-id: notification-consumer
