@@ -19,8 +19,8 @@ spring:
   cloud:
     config:
       uri: ${Config-server-Url}
-
-
+  
+  
   security:
     oauth2:
       resourceserver:
@@ -65,12 +65,12 @@ forgetPasswordPage:
   url: http://localhost:4200/forget-password
 ExpiredPage:
   url: http://localhost:4200/not-found
-
+  
 #config server url
 Config-server-Url: http://localhost:8888
 
 # config client
-
+  
 management:
   endpoints:
     web:
