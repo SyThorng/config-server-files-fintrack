@@ -1,40 +1,94 @@
 server:
+  servlet:
+    context-path: /
   port:
-    9002
-# spring:
-#   #  main:
-#   #    web-application-type: reactive
+    9001
+spring:
+  main:
+    web-application-type: reactive
+  profiles:
+    active: gateway
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: ${Config-server-Url}
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        - id: transaction-openapi
+          uri: lb://TRANSACTION-SERVICE
+          predicates:
+            - Path=/transaction-service/**
+        #          filters:
+        #            - RewritePath=/student-service/(?<path>.*), /$\{path}
 
-#   application:
-#     name: api-gateway-service
-# springdoc:
+        - id: webpush-openapi
+          uri: lb://WEB-PUSH-SERVICE
+          predicates:
+            - Path=/web-push-service/**
+        #          filters:
+        #            - RewritePath=/course-service/(?<path>.*), /$\{path}
 
-#   #  enable-native-support: true
-#   api-docs:
-#     enabled: true
-#   swagger-ui:
-#     disable-swagger-default-url: true
-#     enabled: true
-#     path: /swagger-ui.html
-#     config-url: /v3/api-docs/swagger-config
-#     urls:
-#       - url: /v3/api-docs
-#         name: API Gateway Service
-#       - url: /task-service/v3/api-docs
-#         name: Task Service
-#       - url: /keycloak-client/v3/api-docs
-#         name: Keycloak Client
+        - id: transaction-service
+          uri: lb://TRANSACTION-SERVICE  # URL of service1
+          predicates:
+            - Path=/api/v1/transaction/**  # Route requests starting with /api/students/ to service1
 
-# eureka:
-#   client:
-#     serviceUrl:
-#       defaultZone: http://localhost:8761/eureka/
-# management:
-#   endpoints:
-#     web:
-#       exposure:
-#         include: "*"
+        - id: web-push-service
+          uri: lb://WEB-PUSH-SERVICE  # URL of service2
+          predicates:
+            - Path=/api/v1/webpush/**
 
-#   endpoint:
-#     gateway:
-#       enabled: true
+#        - id: client-event-service
+#          uri: lb://CLIENT-EVENT-SERVICE  # URL of service2
+#          predicates:
+#            - Path=/api/v1/bank/**
+
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+            - Path=/v3/api-docs/**
+          filters:
+            - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+
+springdoc:
+
+  #  enable-native-support: true
+  api-docs:
+    enabled: true
+  swagger-ui:
+    disable-swagger-default-url: true
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Service
+      - url: /transaction-service/v3/api-docs
+        name: Transaction Service
+      - url: /web-push-service/v3/api-docs
+        name: Webpush Service
+#      - url: /client-event-service/v3/api-docs
+#        name: Client Event Service
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+Config-server-Url: http://localhost:8888
+
+# we need to enable the refresh endpoint
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'
+
+  endpoint:
+    prometheus:
+      enabled: true
