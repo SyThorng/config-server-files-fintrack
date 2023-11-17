@@ -1,5 +1,3 @@
-greeting: "hello authentication service"
-
 server:
   port: 8081
 baseUrl: http://localhost:${server.port}
@@ -12,7 +10,6 @@ spring:
           auth: true
           starttls:
             enable: true
-
   security:
     oauth2:
       resourceserver:
@@ -64,4 +61,3 @@ springdoc:
       realm: 'Fintrack'
       clientId: 'fintrack-app'
       clientSecret: 'MYhYGrLOk1UNwK9eTaULwIye39hVujPi'
-
