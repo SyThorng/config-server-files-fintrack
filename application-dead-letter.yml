@@ -47,3 +47,9 @@ logging:
     com.levi.testhibernate: debug
 #    batch_size: 1
 
+springdoc:
+ swagger-ui:
+   oauth:
+     realm: 'Fintrack'
+     clientId: 'fintrack-app'
+     clientSecret: 'MYhYGrLOk1UNwK9eTaULwIye39hVujPi'

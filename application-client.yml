@@ -86,3 +86,10 @@ ExpiredPage:
 #    path: /client-event-service/v3/api-docs #these urls will used to load the swagger ui of this service by the api gateway
 #  swagger-ui:
 #    path: /client-event-service/swagger-ui.html
+
+springdoc:
+ swagger-ui:
+   oauth:
+     realm: 'Fintrack'
+     clientId: 'fintrack-app'
+     clientSecret: 'MYhYGrLOk1UNwK9eTaULwIye39hVujPi'

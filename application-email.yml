@@ -45,3 +45,10 @@ kafka:
     data: send.email.kb
 Base:
   url: http://localhost:8081/api/v1/
+
+springdoc:
+ swagger-ui:
+   oauth:
+     realm: 'Fintrack'
+     clientId: 'fintrack-app'
+     clientSecret: 'MYhYGrLOk1UNwK9eTaULwIye39hVujPi'
