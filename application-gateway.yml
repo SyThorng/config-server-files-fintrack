@@ -2,7 +2,7 @@ server:
   servlet:
     context-path: /
   port:
-    9001
+    9002
 spring:
   #  main:
   #    web-application-type: reactive
