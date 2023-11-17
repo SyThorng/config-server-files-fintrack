@@ -1,8 +1,10 @@
 server:
-  port: 8081
+  port: 8082
 baseUrl: http://localhost:${server.port}
 
 spring:
+  application:
+    name: authentication-service
   mail:
     properties:
       mail:
@@ -10,6 +12,15 @@ spring:
           auth: true
           starttls:
             enable: true
+  profiles:
+    active: authentication
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      uri: ${Config-server-Url}
+
+
   security:
     oauth2:
       resourceserver:
@@ -54,3 +65,19 @@ forgetPasswordPage:
   url: http://localhost:4200/forget-password
 ExpiredPage:
   url: http://localhost:4200/not-found
+
+#config server url
+Config-server-Url: http://localhost:8888
+
+# config client
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - '*'
+
+  endpoint:
+    prometheus:
+      enabled: true
