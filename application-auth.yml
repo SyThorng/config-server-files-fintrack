@@ -1,19 +1,10 @@
-greeting: "hello local"
+greeting: "hello authentication service"
 
 server:
   port: 8081
 baseUrl: http://localhost:${server.port}
 
 spring:
-  profiles:
-    active: auth
-  main:
-    web-application-type: reactive
-  config:
-    import: "optional:configserver:"
-  cloud:
-    config:
-      uri: http://localhost:8888
   mail:
     properties:
       mail:
@@ -74,15 +65,3 @@ springdoc:
       clientId: 'fintrack-app'
       clientSecret: 'MYhYGrLOk1UNwK9eTaULwIye39hVujPi'
 
-
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - '*'
-
-  endpoint:
-    prometheus:
-      enabled: true
