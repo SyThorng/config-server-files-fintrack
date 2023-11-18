@@ -8,25 +8,3 @@ eureka:
 server:
   port: 8761
 
-Config-server-Url: http://localhost:8888
-
-# config client
-spring:
-  profiles:
-    active: eureka
-  config:
-    import: "optional:configserver:"
-  cloud:
-    config:
-      uri: ${Config-server-Url}
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - '*'
-
-  endpoint:
-    prometheus:
-      enabled: true
